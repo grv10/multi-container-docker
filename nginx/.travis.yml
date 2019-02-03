@@ -1,0 +1,26 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t grv10/multi-docker-react-test -f ./client/Dockerfile.dev ./client #./client is the context
+
+script: #All tests come here
+  - docker run grv10/multi-docker-react-test npm test -- --coverage
+
+after_success:
+  - docker build -t grv10/multi-container-client ./client #./client is the context
+  - docker build -t grv10/multi-container-nginx ./nginx
+  - docker build -t grv10/multi-container-server ./server
+  - docker build -t grv10/multi-container-worker ./worker
+
+  #Login to Docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin 
+
+  #Take the images and push them to docker hub
+  - docker push grv10/multi-container-client
+  - docker push grv10/multi-container-nginx
+  - docker push grv10/multi-container-server
+  - docker push rv10/multi-container-worker
+
+
