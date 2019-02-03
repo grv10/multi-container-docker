@@ -3,13 +3,13 @@ services:
   - docker
 
 before_install:
-  - docker build -t gaurav2730/multi-docker-react-test -f ./client/Dockerfile.dev ./client #./client is the context
+  - docker build -t gaurav2730/multi-docker-react-test -f ./client/Dockerfile.dev ./client 
 
 script: #All tests come here
   - docker run gaurav2730/multi-docker-react-test npm test -- --coverage
 
 after_success:
-  - docker build -t gaurav2730/multi-container-client ./client #./client is the context
+  - docker build -t gaurav2730/multi-container-client ./client 
   - docker build -t gaurav2730/multi-container-nginx ./nginx
   - docker build -t gaurav2730/multi-container-server ./server
   - docker build -t gaurav2730/multi-container-worker ./worker
