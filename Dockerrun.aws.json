@@ -1,0 +1,40 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions": [
+        {
+            "name": "clientContainer",
+            "image": "gaurav2730/multi-container-client",
+            "hostname": "client",
+            "essential": false,
+            "memory": 128
+        },
+        {
+            "name": "serverContainer",
+            "image": "gaurav2730/multi-container-server",
+            "hostname": "api",
+            "essential": false,
+            "memory": 128
+        },
+        {
+            "name": "workerContainer",
+            "image": "gaurav2730/multi-container-worker",
+            "hostname": "worker",
+            "essential": false,
+            "memory": 128
+        },
+        {
+            "name": "nginxContainer",
+            "image": "gaurav2730/multi-container-nginx",
+            "hostame": "nginx",
+            "essential": true,
+            "memory": 128,
+            "portMappigs": [
+                {
+                "hostPort": 80,
+                "containerPort": 80
+                }
+            ],
+            "links": ["clientContainer", "serverContainer"]
+        }
+    ]
+}
