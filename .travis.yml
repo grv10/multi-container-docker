@@ -21,6 +21,4 @@ after_success:
   - docker push grv10/multi-container-client
   - docker push grv10/multi-container-nginx
   - docker push grv10/multi-container-server
-  - docker push rv10/multi-container-worker
-
-
+  - docker push grv10/multi-container-worker
